@@ -6,8 +6,10 @@ from .shop import Shop
 
 
 class Customer:
-    def __init__(self, name: str, product_cart: Dict[str, int],
-                 location: List[int], money: float, car: Car) -> None:
+    def __init__(
+        self, name: str, product_cart: Dict[str, int],
+        location: List[int], money: float, car: Car
+    ) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
@@ -23,8 +25,8 @@ class Customer:
 
     def calculate_distance(self, shop_location: List[int]) -> float:
         return math.sqrt(
-            (self.location[0] - shop_location[0]) ** 2 +
-            (self.location[1] - shop_location[1]) ** 2
+            (self.location[0] - shop_location[0]) ** 2
+            + (self.location[1] - shop_location[1]) ** 2
         )
 
     def calculate_product_cost(self, shop: Shop) -> float:
