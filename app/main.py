@@ -56,6 +56,7 @@ def shop_trip() -> None:
             print(f"{customer.name} now has {customer.money:.2f} dollars")
         else:
             print(
-                f"{customer.name} doesn't have enough money to make a purchase "
+                f"{customer.name} doesn't have enough "
+                f"money to make a purchase "
                 "in any shop"
             )
