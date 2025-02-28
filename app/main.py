@@ -1,5 +1,4 @@
 import json
-from typing import List
 from .car import Car
 from .customer import Customer
 from .shop import Shop
@@ -13,16 +12,24 @@ def shop_trip() -> None:
     customers_data = config["customers"]
     shops_data = config["shops"]
 
-    shops = [Shop(shop["name"], shop["location"], shop["products"]) for shop in shops_data]
+    shops = [
+        Shop(
+            shop["name"],
+            shop["location"],
+            shop["products"]
+        ) for shop in shops_data
+    ]
     customers = [
         Customer(
             customer["name"],
             customer["product_cart"],
             customer["location"],
             customer["money"],
-            Car(customer["car"]["brand"], customer["car"]["fuel_consumption"])
-        )
-        for customer in customers_data
+            Car(
+                customer["car"]["brand"],
+                customer["car"]["fuel_consumption"]
+            )
+        ) for customer in customers_data
     ]
 
     for customer in customers:
@@ -32,7 +39,10 @@ def shop_trip() -> None:
 
         for shop in shops:
             trip_cost = customer.calculate_trip_cost(shop, fuel_price)
-            print(f"{customer.name}'s trip to the {shop.name} costs {trip_cost:.2f}")
+            print(
+                f"{customer.name}'s trip to the "
+                f"{shop.name} costs {trip_cost:.2f}"
+            )
             if trip_cost < cheapest_trip_cost:
                 cheapest_trip_cost = trip_cost
                 chosen_shop = shop
@@ -45,4 +55,7 @@ def shop_trip() -> None:
             print(f"{customer.name} rides home")
             print(f"{customer.name} now has {customer.money:.2f} dollars")
         else:
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop")
+            print(
+                f"{customer.name} doesn't have enough money to make a purchase "
+                "in any shop"
+            )

@@ -6,7 +6,8 @@ from .shop import Shop
 
 
 class Customer:
-    def __init__(self, name: str, product_cart: Dict[str, int], location: List[int], money: float, car: Car) -> None:
+    def __init__(self, name: str, product_cart: Dict[str, int],
+                 location: List[int], money: float, car: Car) -> None:
         self.name = name
         self.product_cart = product_cart
         self.location = location
@@ -21,10 +22,17 @@ class Customer:
         return fuel_cost_to_shop + product_cost + fuel_cost_to_home
 
     def calculate_distance(self, shop_location: List[int]) -> float:
-        return math.sqrt((self.location[0] - shop_location[0]) ** 2 + (self.location[1] - shop_location[1]) ** 2)
+        return math.sqrt(
+            (self.location[0] - shop_location[0]) ** 2 +
+            (self.location[1] - shop_location[1]) ** 2
+        )
 
     def calculate_product_cost(self, shop: Shop) -> float:
-        return sum(self.product_cart[product] * shop.products[product] for product in self.product_cart if product in shop.products)
+        return sum(
+            self.product_cart[product] * shop.products[product]
+            for product in self.product_cart
+            if product in shop.products
+        )
 
     def buy_products(self, shop: Shop) -> None:
         now = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
