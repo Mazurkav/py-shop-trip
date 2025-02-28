@@ -1,10 +1,11 @@
 import json
-from app.car import Car
-from app.customer import Customer
-from app.shop import Shop
+from typing import List
+from .car import Car
+from .customer import Customer
+from .shop import Shop
 
 
-def shop_trip():
+def shop_trip() -> None:
     with open("config.json", "r") as file:
         config = json.load(file)
 
@@ -13,9 +14,16 @@ def shop_trip():
     shops_data = config["shops"]
 
     shops = [Shop(shop["name"], shop["location"], shop["products"]) for shop in shops_data]
-    customers = [Customer(customer["name"], customer["product_cart"], customer["location"], customer["money"],
-                          Car(customer["car"]["brand"], customer["car"]["fuel_consumption"])) for customer in
-                 customers_data]
+    customers = [
+        Customer(
+            customer["name"],
+            customer["product_cart"],
+            customer["location"],
+            customer["money"],
+            Car(customer["car"]["brand"], customer["car"]["fuel_consumption"])
+        )
+        for customer in customers_data
+    ]
 
     for customer in customers:
         print(f"\n{customer.name} has {customer.money} dollars")
